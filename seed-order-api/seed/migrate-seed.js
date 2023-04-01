@@ -16,21 +16,29 @@ const config = {
 
 const client = new Client(config);
 
-const getSeedApiResponse = (type) => {
+function readSeedApiResponse(type) {
   return JSON.parse(fs.readFileSync(path.join(__dirname, `./becks-api/${type}.json`)));
 };
 
+// Run sql migration file
+const runMigration = async () => {
+  const query = fs.readFileSync(path.join(__dirname, '../migrations/v0.1.sql')).toString();
+
+  await client.query(query);
+}
+
+// Seed db with seed.sql
 const runSeed = async () => {
-  // Run migrations
+  const query = fs.readFileSync(path.join(__dirname, './seed.sql')).toString();
 
-  // Run seed.sql
+  await client.query(query);
+}
 
-  // Seed tech type data from becks API
-
-  // Seed product data from becks API 
-  const corn = getSeedApiResponse('corn');
-  const soybeans = getSeedApiResponse('soybeans');
-  const wheat = getSeedApiResponse('wheat');
+// Seed db with API product data
+const seedApiData = async () => {
+  const corn = readSeedApiResponse('corn');
+  const soybeans = readSeedApiResponse('soybeans');
+  const wheat = readSeedApiResponse('wheat');
 
   const techTypeMap = new Map();
 
@@ -81,8 +89,7 @@ const runSeed = async () => {
     ${techTypeValues}
   RETURNING id, name
   ;
-  `
-  await client.connect();
+  `;
 
   const techTypeRes = await client.query(insertTechTypesQuery);
   
@@ -103,16 +110,28 @@ const runSeed = async () => {
     ;
   `
 
-  let insertProms = [];
-
   for (const product of products) {
     const { buyerId, familyId, techTypeId, name, maturity, tagline, yearReleased, strengths, bullets} = product;
   
     await client.query(insertProductQuery, [buyerId, familyId, techTypeIdMap[techTypeId], name, maturity, tagline, yearReleased, strengths, bullets]);
   }
 
+}
+
+const migrateAndSeed = async () => {
+  await client.connect();
+  
+  // Run migrations
+  await runMigration();
+  
+  // Run seed.sql
+  await runSeed();
+
+  // Seed product data from becks API 
+  await seedApiData();
+
   await client.end();
 };
 
-runSeed();
+migrateAndSeed();
 
