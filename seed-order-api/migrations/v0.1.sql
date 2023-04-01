@@ -11,7 +11,7 @@ CREATE TABLE employee (
   "id" SERIAL,
   "departmentId" SMALLINT REFERENCES department(id) ON DELETE CASCADE NOT NULL,
   "name" VARCHAR(128) NOT NULL,
-  "email" VARCHAR(128) NOT NULL,
+  "email" VARCHAR(128) UNIQUE NOT NULL,
   "created" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   "updated" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   "deleted" TIMESTAMP WITH TIME ZONE,
@@ -21,7 +21,7 @@ CREATE INDEX "employee_departmentId_fkey" ON employee ("departmentId");
 
 CREATE TABLE family (
   "id" SERIAL,
-  "name" VARCHAR(128) NOT NULL,
+  "name" VARCHAR(128) UNIQUE NOT NULL,
   "created" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   "updated" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   "deleted" TIMESTAMP WITH TIME ZONE,
@@ -30,7 +30,7 @@ CREATE TABLE family (
 
 CREATE TABLE tech_type (
   "id" SERIAL,
-  "name" VARCHAR(128) NOT NULL,
+  "name" VARCHAR(128) UNIQUE NOT NULL,
   "created" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   "updated" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   "deleted" TIMESTAMP WITH TIME ZONE,
@@ -45,9 +45,8 @@ CREATE TABLE product (
   "techTypeId" SMALLINT REFERENCES tech_type(id) ON DELETE CASCADE NOT NULL,
   "name" VARCHAR(128) NOT NULL,
   "maturity" VARCHAR(32),
-  "relativeMaturity" SMALLINT,
-  "tagline" VARCHAR(128) NOT NULL,
-  "yearReleased" VARCHAR(4) NOT NULL,
+  "tagline" VARCHAR(128),
+  "yearReleased" VARCHAR(32),
   "strengths" TEXT NOT NULL,
   "bullets" JSONB NOT NULL,
   "created" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
@@ -63,7 +62,7 @@ CREATE TABLE customer (
   "id" SERIAL,
   "name" VARCHAR(128) NOT NULL,
   "organization" VARCHAR(128) NOT NULL,
-  "email" VARCHAR(128) NOT NULL,
+  "email" VARCHAR(128) UNIQUE NOT NULL,
   "addressLine" VARCHAR(128) NOT NULL,
   "city" VARCHAR(64) NOT NULL,
   "state" VARCHAR(2) NOT NULL,
