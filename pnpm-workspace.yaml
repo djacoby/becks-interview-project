@@ -1,0 +1,4 @@
+packages:
+  - 'seed-order-client'
+  - 'seed-order-api'
+  - 'delivery-wrk-email'
