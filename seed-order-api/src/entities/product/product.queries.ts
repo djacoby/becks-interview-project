@@ -162,7 +162,7 @@ export const getUpdateProductQuery = (
       product.bullets,
       product.stock,
       product.minimumStock,
-      new Date().toISOString(),
+      'NOW()',
       productId,
     ],
   };
@@ -197,6 +197,24 @@ export const getDeleteProductQuery = (id: number): Query => {
         ,"updated"
         ,"deleted";
     `,
-    replacements: [new Date().toISOString(), id],
+    replacements: ['NOW()', id],
+  };
+};
+
+/**
+ * Update product inventory
+ */
+export const getUpdateProductInventoryQuery = (
+  productId: number,
+  quantity: number,
+): Query => {
+  return {
+    query: `
+      UPDATE product
+      SET "stock" = "stock" - $1
+      WHERE "id" = $2
+      RETURNING "id", "buyerId", "name", "stock", "minimumStock";
+    `,
+    replacements: [quantity, productId],
   };
 };
