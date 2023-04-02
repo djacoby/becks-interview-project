@@ -26,3 +26,29 @@ export interface Product {
   updated: string;
   deleted?: string;
 }
+
+/**
+ * Product order object
+ */
+export interface OrderProduct {
+  productId: number;
+  quantity: number;
+}
+
+/**
+ * Customer order
+ */
+export interface CustomerOrder {
+  customerId: number;
+  products: OrderProduct[];
+}
+
+/**
+ * Order object
+ */
+export interface Order {
+  id: number;
+  customerId: number;
+  created: string;
+  products: OrderProduct[];
+}

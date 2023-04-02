@@ -19,7 +19,7 @@ const getAllProductsController = (req, res) => __awaiter(void 0, void 0, void 0,
     if (!products) {
         res.status(404).json({ message: 'No products found' });
     }
-    res.status(200).json({ message: 'All products' });
+    res.status(200).json(products);
 });
 exports.getAllProductsController = getAllProductsController;
 /**
@@ -52,7 +52,8 @@ exports.createProductController = createProductController;
 const updateProductController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const product = req.body;
-    if (!product || !id) {
+    console.log(req.body);
+    if (!product && !id) {
         res.status(400).json({ message: 'Bad request' });
     }
     const updatedProduct = yield (0, product_service_1.updateProduct)(+id, product);

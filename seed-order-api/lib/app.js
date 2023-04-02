@@ -41,6 +41,7 @@ const corsOpts = {
     optionsSuccessStatus: 200,
 };
 app.use(cors.default(corsOpts));
+app.use(express_1.default.json());
 app.use((0, express_winston_1.logger)({
     transports: [new winston.transports.Console()],
     format: winston.format.combine(winston.format.colorize(), winston.format.json(), winston.format.prettyPrint()),

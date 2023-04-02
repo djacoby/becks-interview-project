@@ -11,64 +11,49 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProduct = exports.updateProduct = exports.createProduct = exports.getProductById = exports.getAllProducts = void 0;
 const product_queries_1 = require("./product.queries");
-const storage_1 = require("../storage");
+const execute_query_1 = require("../execute-query");
 /**
  * Get all products
  */
 const getAllProducts = () => __awaiter(void 0, void 0, void 0, function* () {
-    const db = (0, storage_1.getDb)();
-    db.connect();
     const { query, replacements } = (0, product_queries_1.getGetAllProductsQuery)();
-    const res = yield db.query(query, replacements);
-    db.end();
-    return res.rows;
+    const res = yield (0, execute_query_1.executeQuery)(query, replacements);
+    return res;
 });
 exports.getAllProducts = getAllProducts;
 /**
  * Get product by id
  */
 const getProductById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const db = (0, storage_1.getDb)();
-    db.connect();
     const { query, replacements } = (0, product_queries_1.getGetProductByIdQuery)(id);
-    const res = yield db.query(query, replacements);
-    db.end();
-    return res.rows[0];
+    const res = yield (0, execute_query_1.executeQuery)(query, replacements);
+    return res[0];
 });
 exports.getProductById = getProductById;
 /**
  * Create product
  */
 const createProduct = (product) => __awaiter(void 0, void 0, void 0, function* () {
-    const db = (0, storage_1.getDb)();
-    db.connect();
     const { query, replacements } = (0, product_queries_1.getCreateProductQuery)(product);
-    const res = yield db.query(query, replacements);
-    db.end();
-    return res.rows[0];
+    const res = yield (0, execute_query_1.executeQuery)(query, replacements);
+    return res[0];
 });
 exports.createProduct = createProduct;
 /**
  * Update product
  */
 const updateProduct = (productId, product) => __awaiter(void 0, void 0, void 0, function* () {
-    const db = (0, storage_1.getDb)();
-    db.connect();
     const { query, replacements } = (0, product_queries_1.getUpdateProductQuery)(productId, product);
-    const res = yield db.query(query, replacements);
-    db.end();
-    return res.rows[0];
+    const res = yield (0, execute_query_1.executeQuery)(query, replacements);
+    return res[0];
 });
 exports.updateProduct = updateProduct;
 /**
  * Delete product
  */
 const deleteProduct = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const db = (0, storage_1.getDb)();
-    db.connect();
     const { query, replacements } = (0, product_queries_1.getDeleteProductQuery)(id);
-    const res = yield db.query(query, replacements);
-    db.end();
-    return res.rows[0];
+    const res = yield (0, execute_query_1.executeQuery)(query, replacements);
+    return res[0];
 });
 exports.deleteProduct = deleteProduct;

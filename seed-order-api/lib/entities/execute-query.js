@@ -9,14 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const execute_query_1 = require("./entities/execute-query");
-const product_service_1 = require("./entities/product/product.service");
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const db = (0, execute_query_1.getDb)();
-        console.log(db);
-        const res = yield (0, product_service_1.getAllProducts)();
-        console.log(res);
-    });
-}
-run();
+exports.executeQuery = void 0;
+const pg_1 = require("pg");
+const config_1 = require("../config");
+/**
+ * Get database connection instance
+ */
+const executeQuery = (query, replacements) => __awaiter(void 0, void 0, void 0, function* () {
+    const db = new pg_1.Client(config_1.config.db);
+    db.connect();
+    const result = yield db.query(query, replacements);
+    db.end();
+    return result.rows;
+});
+exports.executeQuery = executeQuery;
