@@ -1,20 +1,55 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const cors = require('cors');
-const router_1 = require("./v0/router");
-dotenv_1.default.config();
+const cors = __importStar(require("cors"));
+const winston = __importStar(require("winston"));
+const express_winston_1 = require("express-winston");
+const dotenv = __importStar(require("dotenv"));
+const router_1 = require("./router");
+const config_1 = require("./config");
+dotenv.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT;
+const port = config_1.config.api.port;
 const corsOpts = {
-    origin: 'http://localhost:5173',
+    origin: '*',
     optionsSuccessStatus: 200,
 };
-app.use('/', cors(corsOpts), router_1.router);
+app.use(cors.default(corsOpts));
+app.use((0, express_winston_1.logger)({
+    transports: [new winston.transports.Console()],
+    format: winston.format.combine(winston.format.colorize(), winston.format.json(), winston.format.prettyPrint()),
+}));
+app.use((0, express_winston_1.errorLogger)({
+    transports: [new winston.transports.Console()],
+    format: winston.format.combine(winston.format.colorize(), winston.format.json(), winston.format.prettyPrint()),
+}));
+app.use('/', router_1.router);
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
