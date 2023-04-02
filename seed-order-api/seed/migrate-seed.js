@@ -47,6 +47,8 @@ const seedApiData = async () => {
   const products = [];
 
   for (seed of seeds) {
+    const stock = Math.floor(Math.random() * 1000) + 100;
+
     const product = {
       buyerId: 1,
       familyId: seed.family.ID,
@@ -60,10 +62,12 @@ const seedApiData = async () => {
         first: seed.info.bullet1,
         second: seed.info.bullet2,
         third: seed.info.bullet3,
-      }
+      },
+      stock,
     }
 
     products.push(product);
+
     const techType = seed.techType;
 
     if (!techTypeMap.get(techType)) {
@@ -71,6 +75,7 @@ const seedApiData = async () => {
     }
   }
 
+  // Generate values for tech type insertion query
   const techTypeValues = Array.from(techTypeMap.values()).reduce(
     (acc, curr, i) => {
       if (i === 0) {
@@ -92,8 +97,6 @@ const seedApiData = async () => {
   `;
 
   const techTypeRes = await client.query(insertTechTypesQuery);
-  
-  // console.log(techTypeRes.rows);
 
   const techTypeIdMap = techTypeRes.rows.reduce(
     (acc, curr) => {
@@ -104,16 +107,16 @@ const seedApiData = async () => {
 
   const insertProductQuery = `
     INSERT INTO product
-      ("buyerId", "familyId", "techTypeId", "name", "maturity", "tagline", "yearReleased", "strengths", "bullets")
+      ("buyerId", "familyId", "techTypeId", "name", "maturity", "tagline", "yearReleased", "strengths", "bullets", "stock")
     VALUES
-      ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     ;
   `
 
   for (const product of products) {
-    const { buyerId, familyId, techTypeId, name, maturity, tagline, yearReleased, strengths, bullets} = product;
+    const { buyerId, familyId, techTypeId, name, maturity, tagline, yearReleased, strengths, bullets, stock} = product;
   
-    await client.query(insertProductQuery, [buyerId, familyId, techTypeIdMap[techTypeId], name, maturity, tagline, yearReleased, strengths, bullets]);
+    await client.query(insertProductQuery, [buyerId, familyId, techTypeIdMap[techTypeId], name, maturity, tagline, yearReleased, strengths, bullets, stock]);
   }
 
 }
