@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Express, type Request, type Response } from 'express';
 import * as cors from 'cors';
 import * as winston from 'winston';
 import { errorLogger, logger } from 'express-winston';
@@ -14,7 +14,7 @@ const app: Express = express();
 const port = config.api.port;
 
 const corsOpts: cors.CorsOptions = {
-  origin: '*',
+  origin: 'localhost',
   optionsSuccessStatus: 200,
 };
 
@@ -44,6 +44,11 @@ app.use(
 );
 
 app.use('/', router);
+
+// 404 catch all handler
+app.use((_req: Request, res: Response) => {
+  res.status(404).json({ message: 'Not found' });
+});
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
