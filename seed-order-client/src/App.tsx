@@ -78,6 +78,8 @@ function App() {
       },
       body: JSON.stringify(order),
     });
+
+    setRowSelectionModel([]);
   };
 
   const handleUpdateRow = (newRow: GridRowModel) => {
