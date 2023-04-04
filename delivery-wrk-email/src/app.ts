@@ -27,9 +27,9 @@ const init = async () => {
 
     const info = await transporter.sendMail({
       from: 'Re-order product <lowstock@seed-stock.com>',
-      to: 'djacoby@seed-stock.com',
-      subject: 'Seed stock low',
-      text: `${job.data.productId} is low on stock`,
+      to: job.data.buyerEmail,
+      subject: `Seed ${job.data.productName} stock low`,
+      text: `Product: ${job.data.productName} current stock is currrently at ${job.data.stock} units and is below the minimum stock of ${job.data.minimumStock} units. Please re-order this product.`,
     });
 
     console.log('Message sent: %s', info.messageId);
