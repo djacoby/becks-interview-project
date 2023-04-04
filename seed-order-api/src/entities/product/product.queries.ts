@@ -1,4 +1,6 @@
-import { type Query, type Product } from '../../interface';
+import { type Product } from '@becks-interview-project/sdk';
+
+import { type Query } from '../../interface';
 
 /**
  * Get query to return all products

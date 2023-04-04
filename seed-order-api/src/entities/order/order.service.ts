@@ -1,9 +1,10 @@
+import { Order, OrderProduct } from '@becks-interview-project/sdk';
+
 import {
   getCreateOrderQuery,
   getCreateOrderDetailsQuery,
 } from './order.queries';
 
-import { type Order, type OrderProduct } from '../../interface';
 import { executeQuery } from '../../execute-query';
 
 /**

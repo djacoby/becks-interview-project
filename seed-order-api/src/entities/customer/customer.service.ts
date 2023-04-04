@@ -1,4 +1,4 @@
-import { type Customer } from '../../interface';
+import { type Customer } from '@becks-interview-project/sdk';
 
 import { getGetCustomerByIdQuery } from './customer.queries';
 

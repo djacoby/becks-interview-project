@@ -7,10 +7,13 @@ import {
   getUpdateProductInventoryQuery,
 } from './product.queries';
 
-import { type Product } from '../../interface';
+import {
+  type ProductStockUpdate,
+  type Product,
+} from '@becks-interview-project/sdk';
 
 import { executeQuery } from '../../execute-query';
-import { createEmailJob } from '../../queue';
+import { createEmailJob } from '../../queue/queue';
 
 /**
  * Get all products
@@ -82,10 +85,10 @@ export const updateProductInventory = async (
     quantity,
   );
 
-  const result: Product = await executeQuery(query, replacements);
+  const result: ProductStockUpdate = await executeQuery(query, replacements);
 
   if (result.stock < result.minimumStock) {
-    await createEmailJob({ productId: result.id });
+    await createEmailJob(result);
   }
 
   return result;

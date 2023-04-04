@@ -1,13 +1,13 @@
 import { type Request, type Response } from 'express';
 
-import { createOrder, createOrderDetails } from './order.service';
-import { updateProductInventory } from '../product/product.service';
-
 import {
-  OrderWithProducts,
+  type OrderWithProducts,
   type CustomerOrder,
   type Order,
-} from '../../interface';
+} from '@becks-interview-project/sdk';
+
+import { createOrder, createOrderDetails } from './order.service';
+import { updateProductInventory } from '../product/product.service';
 
 export const createOrderController = async (req: Request, res: Response) => {
   const order: CustomerOrder = req.body;

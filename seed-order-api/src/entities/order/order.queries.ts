@@ -1,4 +1,6 @@
-import { type Query, type OrderProduct } from '../../interface';
+import { type OrderProduct } from '@becks-interview-project/sdk';
+
+import { type Query } from '../../interface';
 
 /**
  * Get query to create order
