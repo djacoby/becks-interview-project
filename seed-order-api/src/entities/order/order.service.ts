@@ -3,8 +3,8 @@ import {
   getCreateOrderDetailsQuery,
 } from './order.queries';
 
-import { OrderProduct } from '../../interface';
-import { executeQuery } from '../execute-query';
+import { type OrderProduct } from '../../interface';
+import { executeQuery } from '../../execute-query';
 
 /**
  * Create order
@@ -12,9 +12,9 @@ import { executeQuery } from '../execute-query';
 export const createOrder = async (customerId: number): Promise<number> => {
   const { query, replacements } = getCreateOrderQuery(customerId);
 
-  const res = await executeQuery(query, replacements);
+  const result = await executeQuery(query, replacements);
 
-  return res[0].id;
+  return result.id;
 };
 
 /**
@@ -26,7 +26,7 @@ export const createOrderDetails = async (
 ): Promise<OrderProduct[]> => {
   const { query, replacements } = getCreateOrderDetailsQuery(orderId, products);
 
-  const res = await executeQuery(query, replacements);
+  const result = await executeQuery(query, replacements);
 
-  return res;
+  return result;
 };

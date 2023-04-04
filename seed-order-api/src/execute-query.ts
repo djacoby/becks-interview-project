@@ -1,6 +1,6 @@
 import { Client } from 'pg';
 
-import { config } from '../config';
+import { config } from './config';
 
 /**
  * Get database connection instance
@@ -14,5 +14,9 @@ export const executeQuery = async (query: string, replacements: any[]) => {
 
   db.end();
 
-  return result.rows;
+  if (result.rows.length > 1) {
+    return result.rows;
+  }
+
+  return result.rows[0];
 };

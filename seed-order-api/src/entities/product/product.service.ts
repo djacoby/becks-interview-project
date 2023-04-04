@@ -7,9 +7,9 @@ import {
   getUpdateProductInventoryQuery,
 } from './product.queries';
 
-import { Product } from '../../interface';
+import { type Product } from '../../interface';
 
-import { executeQuery } from '../execute-query';
+import { executeQuery } from '../../execute-query';
 
 /**
  * Get all products
@@ -17,9 +17,9 @@ import { executeQuery } from '../execute-query';
 export const getAllProducts = async (): Promise<Product[]> => {
   const { query, replacements } = getGetAllProductsQuery();
 
-  const res = await executeQuery(query, replacements);
+  const result = await executeQuery(query, replacements);
 
-  return res;
+  return result;
 };
 
 /**
@@ -28,9 +28,9 @@ export const getAllProducts = async (): Promise<Product[]> => {
 export const getProductById = async (id: number): Promise<Product> => {
   const { query, replacements } = getGetProductByIdQuery(id);
 
-  const res = await executeQuery(query, replacements);
+  const result = await executeQuery(query, replacements);
 
-  return res[0];
+  return result;
 };
 
 /**
@@ -39,9 +39,9 @@ export const getProductById = async (id: number): Promise<Product> => {
 export const createProduct = async (product: Product): Promise<Product> => {
   const { query, replacements } = getCreateProductQuery(product);
 
-  const res = await executeQuery(query, replacements);
+  const result = await executeQuery(query, replacements);
 
-  return res[0];
+  return result;
 };
 
 /**
@@ -53,9 +53,9 @@ export const updateProduct = async (
 ): Promise<Product> => {
   const { query, replacements } = getUpdateProductQuery(productId, product);
 
-  const res = await executeQuery(query, replacements);
+  const result = await executeQuery(query, replacements);
 
-  return res[0];
+  return result;
 };
 
 /**
@@ -64,9 +64,9 @@ export const updateProduct = async (
 export const deleteProduct = async (id: number): Promise<Product> => {
   const { query, replacements } = getDeleteProductQuery(id);
 
-  const res = await executeQuery(query, replacements);
+  const result = await executeQuery(query, replacements);
 
-  return res[0];
+  return result;
 };
 
 /**
@@ -81,13 +81,11 @@ export const updateProductInventory = async (
     quantity,
   );
 
-  const res: Product[] = await executeQuery(query, replacements);
+  const result: Product = await executeQuery(query, replacements);
 
-  res.forEach((product) => {
-    if (product.stock < product.minimumStock) {
-      console.log(`Product ${product.id} is below minimum stock`);
-    }
-  });
+  if (result.stock < result.minimumStock) {
+    console.log(`Product ${result.id} is below minimum stock`);
+  }
 
-  return res[0];
+  return result;
 };

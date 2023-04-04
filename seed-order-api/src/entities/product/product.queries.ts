@@ -1,4 +1,4 @@
-import { Query, Product } from '../../interface';
+import { type Query, type Product } from '../../interface';
 
 /**
  * Get query to return all products
@@ -40,7 +40,7 @@ export const getGetProductByIdQuery = (id: number): Query => {
         ,"buyerId"
         ,"familyId"
         ,"techTypeId"
-        ,"name"
+        ,"type name"
         ,"maturity"
         ,"tagline"
         ,"yearReleased"

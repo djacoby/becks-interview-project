@@ -1,4 +1,4 @@
-import { Query, OrderProduct } from '../../interface';
+import { type Query, type OrderProduct } from '../../interface';
 
 /**
  * Get query to create order

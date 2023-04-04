@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 
 import { createOrder, createOrderDetails } from './order.service';
 import { updateProductInventory } from '../product/product.service';
 
-import { CustomerOrder, Order } from '../../interface';
+import { type CustomerOrder, type Order } from '../../interface';
 
 export const createOrderController = async (req: Request, res: Response) => {
   const order: CustomerOrder = req.body;

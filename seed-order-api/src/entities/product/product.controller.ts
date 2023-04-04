@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 
 import {
   getAllProducts,
@@ -11,7 +11,10 @@ import {
 /**
  * Get all products controller
  */
-export const getAllProductsController = async (req: Request, res: Response) => {
+export const getAllProductsController = async (
+  _req: Request,
+  res: Response,
+) => {
   const products = await getAllProducts();
 
   if (!products) {
