@@ -2,9 +2,21 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+}
+
+html {
+  background-color: #f3f3f3;
+  color: #333;
 }
 
 .parent {
-  height: 75vh;
+  height: 70vh;
+}
+
+.table {
+  margin-top: 1em;
+}
+
+.center {
+  text-align: center;
 }
