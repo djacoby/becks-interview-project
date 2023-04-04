@@ -1,4 +1,4 @@
-import express, { Express, type Request, type Response } from 'express';
+import express, { type Express, type Request, type Response } from 'express';
 import * as cors from 'cors';
 import * as winston from 'winston';
 import { errorLogger, logger } from 'express-winston';
@@ -14,7 +14,7 @@ const app: Express = express();
 const port = config.api.port;
 
 const corsOpts: cors.CorsOptions = {
-  origin: 'localhost',
+  origin: 'http://127.0.0.1:5173',
   optionsSuccessStatus: 200,
 };
 
@@ -43,6 +43,7 @@ app.use(
   }),
 );
 
+// Initialize routes
 app.use('/', router);
 
 // 404 catch all handler

@@ -9,6 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "@becks-interview-project/sdk": "workspace:*"
+  },
   "devDependencies": {
     "ts-node": "^10.9.1",
     "@types/node": "^18.15.11",
