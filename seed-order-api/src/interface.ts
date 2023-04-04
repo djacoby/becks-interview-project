@@ -49,7 +49,14 @@ export interface CustomerOrder {
 export interface Order {
   id: number;
   customerId: number;
+  completed: boolean;
   created: string;
+}
+
+/**
+ * Order with products
+ */
+export interface OrderWithProducts extends Order {
   products: OrderProduct[];
 }
 
@@ -66,4 +73,11 @@ export interface Customer {
   state: string;
   zip: string;
   country: string;
+}
+
+/**
+ * Low stock email job queue
+ */
+export interface LowStockEmailJob {
+  productId: number;
 }

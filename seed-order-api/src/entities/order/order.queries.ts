@@ -8,7 +8,7 @@ export const getCreateOrderQuery = (customerId: number): Query => {
     query: `
       INSERT INTO seed_order ("customerId")
       VALUES ($1)
-      RETURNING id;
+      RETURNING "id", "customerId", "completed", "created";
     `,
     replacements: [customerId],
   };

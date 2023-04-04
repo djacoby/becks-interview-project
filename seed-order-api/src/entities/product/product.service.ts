@@ -10,6 +10,7 @@ import {
 import { type Product } from '../../interface';
 
 import { executeQuery } from '../../execute-query';
+import { createEmailJob } from '../../queue';
 
 /**
  * Get all products
@@ -84,7 +85,7 @@ export const updateProductInventory = async (
   const result: Product = await executeQuery(query, replacements);
 
   if (result.stock < result.minimumStock) {
-    console.log(`Product ${result.id} is below minimum stock`);
+    await createEmailJob({ productId: result.id });
   }
 
   return result;

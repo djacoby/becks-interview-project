@@ -3,18 +3,18 @@ import {
   getCreateOrderDetailsQuery,
 } from './order.queries';
 
-import { type OrderProduct } from '../../interface';
+import { type Order, type OrderProduct } from '../../interface';
 import { executeQuery } from '../../execute-query';
 
 /**
  * Create order
  */
-export const createOrder = async (customerId: number): Promise<number> => {
+export const createOrder = async (customerId: number): Promise<Order> => {
   const { query, replacements } = getCreateOrderQuery(customerId);
 
   const result = await executeQuery(query, replacements);
 
-  return result.id;
+  return result;
 };
 
 /**
@@ -28,5 +28,5 @@ export const createOrderDetails = async (
 
   const result = await executeQuery(query, replacements);
 
-  return result;
+  return [result];
 };

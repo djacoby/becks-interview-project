@@ -3,18 +3,22 @@ import { type Request, type Response } from 'express';
 import { createOrder, createOrderDetails } from './order.service';
 import { updateProductInventory } from '../product/product.service';
 
-import { type CustomerOrder, type Order } from '../../interface';
+import {
+  OrderWithProducts,
+  type CustomerOrder,
+  type Order,
+} from '../../interface';
 
 export const createOrderController = async (req: Request, res: Response) => {
   const order: CustomerOrder = req.body;
 
-  const orderId = await createOrder(order.customerId);
+  const orderCreated: Order = await createOrder(order.customerId);
 
-  if (!orderId) {
+  if (!orderCreated) {
     res.status(500).json({ message: 'Internal server error' });
   }
 
-  const products = await createOrderDetails(orderId, order.products);
+  const products = await createOrderDetails(orderCreated.id, order.products);
 
   if (!products) {
     res.status(500).json({ message: 'Internal server error' });
@@ -28,11 +32,9 @@ export const createOrderController = async (req: Request, res: Response) => {
     console.log(err);
   });
 
-  const newOrder: Order = {
+  const newOrder: OrderWithProducts = {
+    ...orderCreated,
     products,
-    id: orderId,
-    customerId: order.customerId,
-    created: Date.now().toString(),
   };
 
   res.status(200).json(newOrder);
