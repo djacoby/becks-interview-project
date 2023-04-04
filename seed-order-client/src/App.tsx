@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 import Button from '@mui/material/Button';
 
@@ -15,55 +15,9 @@ import {
 
 import { type Customer } from '@becks-interview-project/sdk';
 
-import { FAMILY_TYPE, TECH_TYPE } from './constants';
+import { columns } from './grid-col-defs';
 
 import './App.css';
-
-// value getter for the family column
-const familyValueGetter = (params: any) => {
-  const familyId = params.row.familyId;
-
-  return FAMILY_TYPE[+familyId];
-};
-
-// value getter for the tech type column
-const techTypeValueGetter = (params: any) => {
-  const techType = params.row.techTypeId;
-
-  return TECH_TYPE[+techType];
-};
-
-const columns: GridColDef[] = [
-  {
-    field: 'qty',
-    headerName: 'Quantity',
-    width: 150,
-    editable: true,
-    valueGetter: (params: GridValueGetterParams) => {
-      return params.row.quantity;
-    },
-    valueSetter: (params: GridValueSetterParams) => {
-      return { ...params.row, quantity: +params.value };
-    },
-  },
-  { field: 'name', headerName: 'Name', width: 150 },
-  {
-    field: 'familyId',
-    headerName: 'Family',
-    width: 150,
-    valueGetter: familyValueGetter,
-  },
-  { field: 'maturity', headerName: 'Maturity', width: 150 },
-  {
-    field: 'techTypeId',
-    headerName: 'Tech Type',
-    width: 150,
-    valueGetter: techTypeValueGetter,
-  },
-  { field: 'yearReleased', headerName: 'Release Date', width: 150 },
-  { field: 'tagline', headerName: 'Tagline', width: 400 },
-  { field: 'stock', headerName: 'Stock', width: 100 },
-];
 
 function App() {
   const [products, updateProducts] = useState<GridValidRowModel[]>([]);
@@ -99,10 +53,7 @@ function App() {
     };
 
     fetchProducts();
-
-    if (!user) {
-      fetchUser(1);
-    }
+    fetchUser(1);
   }, []);
 
   const handleCreateOrder = () => {
