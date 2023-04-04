@@ -52,3 +52,18 @@ export interface Order {
   created: string;
   products: OrderProduct[];
 }
+
+/**
+ * Customer object
+ */
+export interface Customer {
+  id: number;
+  name: string;
+  organization: string;
+  email: string;
+  addressLine: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+}
