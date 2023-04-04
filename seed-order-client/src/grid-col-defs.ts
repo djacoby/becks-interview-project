@@ -26,7 +26,7 @@ export const columns: GridColDef[] = [
   {
     field: 'qty',
     headerName: 'Quantity',
-    width: 150,
+    width: 100,
     editable: true,
     valueGetter: (params: GridValueGetterParams) => {
       return params.row.quantity;
@@ -42,14 +42,14 @@ export const columns: GridColDef[] = [
     width: 150,
     valueGetter: familyValueGetter,
   },
-  { field: 'maturity', headerName: 'Maturity', width: 150 },
+  { field: 'maturity', headerName: 'Maturity', width: 125 },
   {
     field: 'techTypeId',
     headerName: 'Tech Type',
-    width: 150,
+    width: 125,
     valueGetter: techTypeValueGetter,
   },
   { field: 'yearReleased', headerName: 'Release Date', width: 150 },
-  { field: 'tagline', headerName: 'Tagline', width: 400 },
+  { field: 'tagline', headerName: 'Tagline', width: 300 },
   { field: 'stock', headerName: 'Stock', width: 100 },
 ];

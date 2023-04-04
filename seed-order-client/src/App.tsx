@@ -4,11 +4,7 @@ import Button from '@mui/material/Button';
 
 import {
   DataGrid,
-  GridRowsProp,
-  GridColDef,
-  GridValueSetterParams,
   GridRowSelectionModel,
-  GridValueGetterParams,
   GridRowModel,
   GridValidRowModel,
 } from '@mui/x-data-grid';
@@ -75,15 +71,13 @@ function App() {
       products: selectedProducts,
     };
 
-    console.log(order);
-
     fetch('http://localhost:8000/order', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(order),
-    }).then((res) => console.log(res));
+    });
   };
 
   const handleUpdateRow = (newRow: GridRowModel) => {

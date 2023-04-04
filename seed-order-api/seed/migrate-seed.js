@@ -11,28 +11,32 @@ const config = {
   database: process.env.DB_NAME,
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
-  port: process.env.DB_PORT
+  port: process.env.DB_PORT,
 };
 
 const client = new Client(config);
 
 function readSeedApiResponse(type) {
-  return JSON.parse(fs.readFileSync(path.join(__dirname, `./becks-api/${type}.json`)));
-};
+  return JSON.parse(
+    fs.readFileSync(path.join(__dirname, `./becks-api/${type}.json`)),
+  );
+}
 
 // Run sql migration file
 const runMigration = async () => {
-  const query = fs.readFileSync(path.join(__dirname, '../migrations/v0.1.sql')).toString();
+  const query = fs
+    .readFileSync(path.join(__dirname, '../migrations/v0.1.sql'))
+    .toString();
 
   await client.query(query);
-}
+};
 
 // Seed db with seed.sql
 const runSeed = async () => {
   const query = fs.readFileSync(path.join(__dirname, './seed.sql')).toString();
 
   await client.query(query);
-}
+};
 
 // Seed db with API product data
 const seedApiData = async () => {
@@ -64,7 +68,7 @@ const seedApiData = async () => {
         third: seed.info.bullet3,
       },
       stock,
-    }
+    };
 
     products.push(product);
 
@@ -79,12 +83,12 @@ const seedApiData = async () => {
   const techTypeValues = Array.from(techTypeMap.values()).reduce(
     (acc, curr, i) => {
       if (i === 0) {
-        return acc += `('${curr}')`;
+        return (acc += `('${curr}')`);
       }
 
-      return acc += `\n,('${curr}')`;
+      return (acc += `\n,('${curr}')`);
     },
-    ''
+    '',
   );
 
   const insertTechTypesQuery = `
@@ -98,12 +102,9 @@ const seedApiData = async () => {
 
   const techTypeRes = await client.query(insertTechTypesQuery);
 
-  const techTypeIdMap = techTypeRes.rows.reduce(
-    (acc, curr) => {
-      return { ...acc, [curr.name]: curr.id };
-    },
-    {}
-  );
+  const techTypeIdMap = techTypeRes.rows.reduce((acc, curr) => {
+    return { ...acc, [curr.name]: curr.id };
+  }, {});
 
   const insertProductQuery = `
     INSERT INTO product
@@ -111,30 +112,55 @@ const seedApiData = async () => {
     VALUES
       ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
     ;
-  `
+  `;
 
   for (const product of products) {
-    const { buyerId, familyId, techTypeId, name, maturity, tagline, yearReleased, strengths, bullets, stock} = product;
-  
-    await client.query(insertProductQuery, [buyerId, familyId, techTypeIdMap[techTypeId], name, maturity, tagline, yearReleased, strengths, bullets, stock]);
-  }
+    const {
+      buyerId,
+      familyId,
+      techTypeId,
+      name,
+      maturity,
+      tagline,
+      yearReleased,
+      strengths,
+      bullets,
+      stock,
+    } = product;
 
-}
+    await client.query(insertProductQuery, [
+      buyerId,
+      familyId,
+      techTypeIdMap[techTypeId],
+      name,
+      maturity,
+      tagline,
+      yearReleased,
+      strengths,
+      bullets,
+      stock,
+    ]);
+  }
+};
 
 const migrateAndSeed = async () => {
+  console.log('Starting migrations/ database seeding.');
   await client.connect();
-  
+
   // Run migrations
+  console.log('Executing migrations...');
   await runMigration();
-  
+
   // Run seed.sql
+  console.log('Seeding seed.sql...');
   await runSeed();
 
-  // Seed product data from becks API 
+  // Seed product data from becks API
+  console.log('Seeding API seed data...');
   await seedApiData();
 
   await client.end();
+  console.log('Complete!');
 };
 
 migrateAndSeed();
-
