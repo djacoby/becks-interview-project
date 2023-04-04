@@ -1,0 +1,251 @@
+{
+    "parentID": "0240E3",
+    "techType": "E3",
+    "brand": "0240E3",
+    "productDisplayName": "0240E3",
+    "family": {
+        "ID": 2,
+        "code": "SOYBEANS",
+        "desc": "Soybean",
+        "display": "soybeans"
+    },
+    "info": {
+        "maturity": "0.2",
+        "tagline": "Agronomics for Red River Valley",
+        "bullet1": "Very good IDC tolerance ",
+        "bullet2": "Excellent emergence",
+        "bullet3": "Strong performance on tougher acres",
+        "becksBit": "",
+        "tagLogo": "https://images.beckshybrids.com/TagLogos/E3.jpg",
+        "xl": false,
+        "phoenix": false,
+        "lpLow": 100,
+        "lpHigh": 130,
+        "mpLow": 120,
+        "mpHigh": 145,
+        "hpLow": 140,
+        "hpHigh": 190,
+        "trait": "E3",
+        "new": "1",
+        "strengths": "BECK 0240E3 is the earliest E3 variety in Beck's lineup and is a strong option for IDC and stress tolerance. This soybean has a strong overall PRR field tolerance score and is an excellent companion to BECK 0430E3 in the Red River Valley and other northern geographies.",
+        "techPreference": null,
+        "techLabel": "Enlist E3",
+        "productRegions": "11,14,15",
+        "leadProductRegions": null,
+        "hybridDBEnabled": true,
+        "productSheetLink": "https://www.beckshybrids.com/products/soybeans/hybrid-seed/0240E3",
+        "variety": "188807",
+        "yearReleased": "2022",
+        "relativeMaturity": 0.2,
+        "yieldForMaturity": 9,
+        "recommendedSoilType": "HP-LP",
+        "noTillAdapted": 8,
+        "seedlingEmergence": "8",
+        "summerCanopy": "Wide",
+        "recommendedPoplulation": "Medium",
+        "recommendedRowWidths": "All",
+        "hypocotylElongation": "2-3\"",
+        "shatterScore": 8,
+        "eyeAppealAtHarvest": 9,
+        "specialTraits": null,
+        "expNum": "8807",
+        "spHigh": "G",
+        "spMed": "E",
+        "spLow": "E",
+        "spPoor": "E",
+        "spIrrigation": "G",
+        "phytophthoraRes": "None",
+        "phytophthoraTol": "8",
+        "suddenDeathSyndrome": "P6",
+        "brownStemRot": "S",
+        "whiteMoldRating": "5",
+        "cystNematode3": null,
+        "cystNematode4": null,
+        "cystNematode1": null,
+        "cystNematode5": null,
+        "frogEye": "NR",
+        "idc": "8",
+        "stemCanker": "9",
+        "cystNematodeResistance": "PI88788",
+        "plantHeight": "Medium",
+        "standability": 7,
+        "leafColor": "Dark Green",
+        "flowerColor": "White",
+        "pubescence": "Gray",
+        "podColor": "Tan",
+        "poddingHeight": "Low",
+        "seedsPound": "2800",
+        "hilum": "Buff",
+        "seedAppearance": "9",
+        "seedProtein": "",
+        "seedOil": "",
+        "rootKnot": "NR",
+        "yieldRange1": "E",
+        "yieldRange2": "E",
+        "yieldRange3": "E",
+        "yieldRange4": "E",
+        "yieldRange5": "E"
+    },
+    "products": [
+        {
+            "productID": "0240E3GF",
+            "productDesc": "0240Enlist BAG ESCALATE SDS+",
+            "productDisplayName": "0240E3",
+            "packageType": {
+                "code": "G",
+                "desc": "Bag",
+                "listOrder": 10
+            },
+            "treatment": {
+                "code": "F",
+                "desc": "Escalate SDS+",
+                "listOrder": 10
+            },
+            "availCode": null,
+            "swapping": {
+                "packageType": true,
+                "treatment": false
+            }
+        },
+        {
+            "productID": "0240E3GI",
+            "productDesc": "0240Enlist BAG ILEVO.TWO",
+            "productDisplayName": "0240E3",
+            "packageType": {
+                "code": "G",
+                "desc": "Bag",
+                "listOrder": 10
+            },
+            "treatment": {
+                "code": "I",
+                "desc": "ILEVO.TWO",
+                "listOrder": null
+            },
+            "availCode": null,
+            "swapping": {
+                "packageType": true,
+                "treatment": false
+            }
+        },
+        {
+            "productID": "0240E3KF",
+            "productDesc": "0240Enlist BULK ESCALATE SDS+",
+            "productDisplayName": "0240E3",
+            "packageType": {
+                "code": "K",
+                "desc": "Bulk",
+                "listOrder": 40
+            },
+            "treatment": {
+                "code": "F",
+                "desc": "Escalate SDS+",
+                "listOrder": 10
+            },
+            "availCode": null,
+            "swapping": {
+                "packageType": true,
+                "treatment": false
+            }
+        },
+        {
+            "productID": "0240E3KI",
+            "productDesc": "0240Enlist BULK ILEVO.TWO",
+            "productDisplayName": "0240E3",
+            "packageType": {
+                "code": "K",
+                "desc": "Bulk",
+                "listOrder": 40
+            },
+            "treatment": {
+                "code": "I",
+                "desc": "ILEVO.TWO",
+                "listOrder": null
+            },
+            "availCode": null,
+            "swapping": {
+                "packageType": true,
+                "treatment": false
+            }
+        },
+        {
+            "productID": "0240E3MF",
+            "productDesc": "0240Enlist MB ESCALATE SDS+",
+            "productDisplayName": "0240E3",
+            "packageType": {
+                "code": "M",
+                "desc": "Mini Bulk",
+                "listOrder": 30
+            },
+            "treatment": {
+                "code": "F",
+                "desc": "Escalate SDS+",
+                "listOrder": 10
+            },
+            "availCode": null,
+            "swapping": {
+                "packageType": true,
+                "treatment": false
+            }
+        },
+        {
+            "productID": "0240E3MI",
+            "productDesc": "0240Enlist MB ILEVO.TWO",
+            "productDisplayName": "0240E3",
+            "packageType": {
+                "code": "M",
+                "desc": "Mini Bulk",
+                "listOrder": 30
+            },
+            "treatment": {
+                "code": "I",
+                "desc": "ILEVO.TWO",
+                "listOrder": null
+            },
+            "availCode": null,
+            "swapping": {
+                "packageType": true,
+                "treatment": false
+            }
+        },
+        {
+            "productID": "0240E3XF",
+            "productDesc": "0240Enlist SDBX ESCALATE SDS+",
+            "productDisplayName": "0240E3",
+            "packageType": {
+                "code": "X",
+                "desc": "Seed Box",
+                "listOrder": 20
+            },
+            "treatment": {
+                "code": "F",
+                "desc": "Escalate SDS+",
+                "listOrder": 10
+            },
+            "availCode": null,
+            "swapping": {
+                "packageType": true,
+                "treatment": false
+            }
+        },
+        {
+            "productID": "0240E3XI",
+            "productDesc": "0240Enlist SDBX ILEVO.TWO",
+            "productDisplayName": "0240E3",
+            "packageType": {
+                "code": "X",
+                "desc": "Seed Box",
+                "listOrder": 20
+            },
+            "treatment": {
+                "code": "I",
+                "desc": "ILEVO.TWO",
+                "listOrder": null
+            },
+            "availCode": null,
+            "swapping": {
+                "packageType": true,
+                "treatment": false
+            }
+        }
+    ]
+}

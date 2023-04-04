@@ -14,7 +14,7 @@ VALUES
 INSERT INTO employee
  ("departmentId", "name", "email")
 VALUES
- (1, 'David Jacoby', 'david-jacoby@protonmail.com')
+ (1, 'David Jacoby', 'djacoby@bulkseedsuplier.com')
  ,(2, 'Harold Hankins', 'hhankins@bulkseedsuplier.com')
  ,(3, 'Carol Evans', 'cevans@bulkseedsuplier.com')
  ,(4, 'John Beckley', 'jbeckley@bulkseedsuplier.com')

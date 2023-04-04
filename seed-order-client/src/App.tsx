@@ -1,54 +1,121 @@
 import { useState, useEffect } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+
+import Button from '@mui/material/Button';
+
+import {
+  DataGrid,
+  GridRowSelectionModel,
+  GridRowModel,
+  GridValidRowModel,
+} from '@mui/x-data-grid';
+
+import { type Customer } from '@becks-interview-project/sdk';
+
+import { columns } from './grid-col-defs';
+
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [response, updateResponse] = useState(undefined);
+  const [products, updateProducts] = useState<GridValidRowModel[]>([]);
+  const [user, updateUser] = useState<Customer>();
+
+  const [rowSelectionModel, setRowSelectionModel] =
+    useState<GridRowSelectionModel>([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/hello').then(async (response) =>
-      console.log(await response.json()),
-    );
+    // fetch products from the server
+    const fetchProducts = async () => {
+      const data = await (await fetch('http://localhost:8000/product')).json();
+
+      // set state when the data received
+      const products = data.map((product: any) => {
+        return {
+          ...product,
+          quantity: 0,
+        };
+      });
+
+      updateProducts(products);
+    };
+
+    // fetch products from the server
+    const fetchUser = async (id: number) => {
+      const data = await (
+        await fetch(`http://localhost:8000/customer/1`)
+      ).json();
+
+      // set state when the data received
+      updateUser(data);
+    };
+
+    fetchProducts();
+    fetchUser(1);
   }, []);
 
+  const handleCreateOrder = () => {
+    const selectedProducts = products.reduce(
+      (acc: GridValidRowModel[], curr: GridRowModel) => {
+        if (rowSelectionModel.includes(curr.id) && curr.quantity > 0) {
+          const { id, quantity } = curr;
+
+          return [...acc, { productId: id, quantity }];
+        }
+
+        return acc;
+      },
+      [],
+    );
+
+    const order = {
+      customerId: user?.id,
+      products: selectedProducts,
+    };
+
+    fetch('http://localhost:8000/order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(order),
+    });
+  };
+
+  const handleUpdateRow = (newRow: GridRowModel) => {
+    updateProducts((prevProducts) => {
+      return prevProducts.map((product) => {
+        return product.id === newRow.id ? { ...newRow } : product;
+      });
+    });
+
+    return newRow;
+  };
+
   return (
-    <div className="App">
-      <div>
-        <a
-          href="https://vitejs.dev"
-          target="_blank"
-        >
-          <img
-            src={viteLogo}
-            className="logo"
-            alt="Vite logo"
+    <div className="parent">
+      <h1 className="center">Seed Order Portal</h1>
+      <Button
+        variant="contained"
+        onClick={handleCreateOrder}
+      >
+        Create Order
+      </Button>
+      {
+        // only render the data grid when the products are loaded
+        products && (
+          <DataGrid
+            className="table"
+            rows={products}
+            columns={columns}
+            disableRowSelectionOnClick
+            checkboxSelection
+            processRowUpdate={handleUpdateRow}
+            onRowSelectionModelChange={(id) => {
+              setRowSelectionModel(id);
+            }}
+            rowSelectionModel={rowSelectionModel}
           />
-        </a>
-        <a
-          href="https://reactjs.org"
-          target="_blank"
-        >
-          <img
-            src={reactLogo}
-            className="logo react"
-            alt="React logo"
-          />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        )
+      }
     </div>
   );
 }

@@ -4,14 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"pnpm run --prefix ./seed-order-api dev\" \"pnpm run --prefix ./delivery-wrk-email dev\" \"pnpm run --prefix ./seed-order-client dev\" ",
+    "seed": "node ./seed-order-api/seed/migrate-seed.js "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "@becks-interview-project/sdk": "workspace:*",
+    "concurrently": "^8.0.1"
+  },
   "devDependencies": {
-    "ts-node": "^10.9.1",
     "@types/node": "^18.15.11",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.3"
   }
 }

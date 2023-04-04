@@ -42,7 +42,7 @@ export const getGetProductByIdQuery = (id: number): Query => {
         ,"buyerId"
         ,"familyId"
         ,"techTypeId"
-        ,"type name"
+        ,"name"
         ,"maturity"
         ,"tagline"
         ,"yearReleased"
