@@ -14,7 +14,7 @@ const app: Express = express();
 const port = config.api.port;
 
 const corsOpts: cors.CorsOptions = {
-  origin: 'http://127.0.0.1:5173',
+  origin: '*',
   optionsSuccessStatus: 200,
 };
 
