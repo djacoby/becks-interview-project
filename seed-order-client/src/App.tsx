@@ -22,32 +22,30 @@ function App() {
   const [rowSelectionModel, setRowSelectionModel] =
     useState<GridRowSelectionModel>([]);
 
+  // fetch products from the server
+  const fetchProducts = async () => {
+    const data = await (await fetch('http://localhost:8000/product')).json();
+
+    // set state when the data received
+    const products = data.map((product: any) => {
+      return {
+        ...product,
+        quantity: 0,
+      };
+    });
+
+    updateProducts(products);
+  };
+
+  // fetch user from the server
+  const fetchUser = async (id: number) => {
+    const data = await (await fetch(`http://localhost:8000/customer/1`)).json();
+
+    // set state when the data received
+    updateUser(data);
+  };
+
   useEffect(() => {
-    // fetch products from the server
-    const fetchProducts = async () => {
-      const data = await (await fetch('http://localhost:8000/product')).json();
-
-      // set state when the data received
-      const products = data.map((product: any) => {
-        return {
-          ...product,
-          quantity: 0,
-        };
-      });
-
-      updateProducts(products);
-    };
-
-    // fetch products from the server
-    const fetchUser = async (id: number) => {
-      const data = await (
-        await fetch(`http://localhost:8000/customer/1`)
-      ).json();
-
-      // set state when the data received
-      updateUser(data);
-    };
-
     fetchProducts();
     fetchUser(1);
   }, []);
@@ -79,7 +77,12 @@ function App() {
       body: JSON.stringify(order),
     });
 
+    // show an alert when the order is created
+    alert('Order Created!');
+
     setRowSelectionModel([]);
+
+    fetchProducts();
   };
 
   const handleUpdateRow = (newRow: GridRowModel) => {
@@ -98,6 +101,15 @@ function App() {
       <Button
         variant="contained"
         onClick={handleCreateOrder}
+        // disable the button when no products are selected or if any of the selected products have a quantity of 0
+        disabled={
+          rowSelectionModel.length === 0 ||
+          products.some((product) => {
+            return (
+              rowSelectionModel.includes(product.id) && product.quantity === 0
+            );
+          })
+        }
       >
         Create Order
       </Button>

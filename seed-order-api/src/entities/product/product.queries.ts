@@ -25,7 +25,7 @@ export const getGetAllProductsQuery = (): Query => {
         ,"updated"
       FROM product
       WHERE "deleted" IS NULL
-      ORDER BY "familyId" ASC;
+      ORDER BY "familyId", "name" ASC;
   `,
     replacements: [],
   };
